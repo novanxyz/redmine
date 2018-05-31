@@ -1,5 +1,17 @@
-= Redmine
+= Redmine XYZ
 
 Redmine is a flexible project management web application written using Ruby on Rails framework.
 
 More details can be found in the doc directory or on the official website http://www.redmine.org
+
+===This is my customization of my redmine installations, plugin/features included:
+
+* integration to slack
+* integration with git/scm
+* responsive/mobile view
+* agile/task board view
+* stats views
+* send issue to anonymous email
+* overlay issue view
+* 
+
