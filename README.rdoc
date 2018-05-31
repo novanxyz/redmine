@@ -13,5 +13,5 @@ More details can be found in the doc directory or on the official website http:/
 * stats views
 * send issue to anonymous email
 * overlay issue view
-* 
+* integration with jenkins Continues Integration
 
