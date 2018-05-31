@@ -19,5 +19,5 @@ Rails.application.configure do
   # Print deprecation notices to stderr and the Rails logger.
   config.active_support.deprecation = [:stderr, :log]
 end
-#Redmine::Configuration['attachments_storage_path'] = '/srv/redmine/altefalken'
+#Redmine::Configuration['attachments_storage_path'] = '/srv/redmine/files'
 
