@@ -1,0 +1,74 @@
+<% if controller.is_a?(WikiController) %>
+
+<% if page.text.present? && (!meta_description? || !meta_keywords?) %>
+  <% text = strip_textile(page.text, :object => page.content, :project => page.project, :attachments => page.attachments) %>
+  <% meta_description(truncate_description(text)) unless meta_description? %>
+  <% meta_keywords(extract_keywords(text)) unless meta_keywords? %>
+<% end %>
+
+<% settings = Setting.plugin_meta %>
+
+<% unless settings[:facebook_admins].blank? %>
+  <% content_for(:header_tags) do %>
+    <meta property="fb:admins" content="<%= h settings[:facebook_admins] %>" />
+  <% end %>
+<% end %>
+
+<% unless settings[:facebook_app].blank? %>
+  <% content_for(:header_tags) do %>
+    <meta property="fb:app_id" content="<%= h settings[:facebook_app] %>" />
+  <% end %>
+<% end %>
+
+<% if Redmine::VERSION::MAJOR == 1 && Redmine::VERSION::MINOR == 0 %>
+  <% wiki_url = url_for(:controller => 'wiki', :action => 'index', :page => page.title, :id => page.project, :only_path => false) %>
+<% else %>
+  <% wiki_url = url_for(:controller => 'wiki', :action => 'show', :id => page.title, :project_id => page.project, :only_path => false) %>
+<% end %>
+
+<% if settings[:open_graph] %>
+  <% content_for(:header_tags) do %>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="<%= h page.project.name %>: <%= h extract_wiki_title(page) %>" />
+    <% if meta_description? %>
+      <meta property="og:description" content="<%= h meta_description %>" />
+    <% end %>
+    <% page.content.versions.collect{ |version| version.author }.uniq.each do |author| %>
+      <meta property="article:author" content="<%= h url_for(:controller => 'users', :action => 'show', :id => author, :only_path => false) %>" />
+    <% end %>
+    <% meta_images do |image| %>
+      <meta property="og:image" content="<%= h image %>" />
+    <% end %>
+    <meta property="article:published_time" content="<%= page.created_on.strftime('%Y-%m-%dT%H:%M') %>" />
+    <% if page.respond_to?(:updated_on) %>
+        <meta property="article:modified_time" content="<%= page.updated_on.strftime('%Y-%m-%dT%H:%M') %>" />
+    <% end %>
+    <meta property="og:url" content="<%= h wiki_url %>" />
+    <% unless settings[:open_graph_site].blank? %>
+      <meta property="og:site_name" content="<%= h settings[:open_graph_site] %>" />
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if settings[:twitter_cards] %>
+  <% content_for(:header_tags) do %>
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="<%= h page.project.name %>: <%= h extract_wiki_title(page) %>" />
+    <% if meta_description? %>
+      <meta name="twitter:description" content="<%= h truncate_description(meta_description, 200) %>" />
+    <% end %>
+    <% catch :done do %>
+      <% meta_images do |image| %>
+        <meta name="twitter:image" content="<%= h image %>" />
+        <% throw :done %>
+      <% end %>
+    <% end %>
+    <meta name="twitter:url" content="<%= h wiki_url %>" />
+    <% project_twitter = project_twitter(page.project) %>
+    <% unless project_twitter.blank? %>
+      <meta name="twitter:site" content="<%= h project_twitter %>" />
+    <% end %>
+  <% end %>
+<% end %>
+
+<% end %>

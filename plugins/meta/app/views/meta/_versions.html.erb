@@ -1,0 +1,60 @@
+<% if version.description.present? && !meta_description? %>
+  <% meta_description(version.description) unless meta_description? %>
+<% end %>
+
+<% if version.wiki_page && version.wiki_page.text.present? && !meta_keywords? %>
+  <% text = strip_textile(version.wiki_page.text, :object => version.wiki_page.content, :project => version.project, :attachments => version.wiki_page.attachments) %>
+  <% meta_keywords(extract_keywords(text)) unless meta_keywords? %>
+<% end %>
+
+<% settings = Setting.plugin_meta %>
+
+<% unless settings[:facebook_admins].blank? %>
+  <% content_for(:header_tags) do %>
+    <meta property="fb:admins" content="<%= h settings[:facebook_admins] %>" />
+  <% end %>
+<% end %>
+
+<% unless settings[:facebook_app].blank? %>
+  <% content_for(:header_tags) do %>
+    <meta property="fb:app_id" content="<%= h settings[:facebook_app] %>" />
+  <% end %>
+<% end %>
+
+<% if settings[:open_graph] %>
+  <% content_for(:header_tags) do %>
+    <meta property="og:type" content="product" />
+    <meta property="og:title" content="<%= h version.project.name %> <%= h version.name %>" />
+    <% if meta_description? %>
+      <meta property="og:description" content="<%= h meta_description %>" />
+    <% end %>
+    <% meta_images do |image| %>
+      <meta property="og:image" content="<%= h image %>" />
+    <% end %>
+    <meta property="og:url" content="<%= h url_for(:controller => 'versions', :action => 'show', :id => version, :only_path => false) %>" />
+    <% unless settings[:open_graph_site].blank? %>
+      <meta property="og:site_name" content="<%= h settings[:open_graph_site] %>" />
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if settings[:twitter_cards] %>
+  <% content_for(:header_tags) do %>
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="<%= h version.project.name %> <%= h version.name %>" />
+    <% if meta_description? %>
+      <meta name="twitter:description" content="<%= h truncate_description(meta_description, 200) %>" />
+    <% end %>
+    <% catch :done do %>
+      <% meta_images do |image| %>
+        <meta name="twitter:image" content="<%= h image %>" />
+        <% throw :done %>
+      <% end %>
+    <% end %>
+    <meta name="twitter:url" content="<%= h url_for(:controller => 'versions', :action => 'show', :id => version, :only_path => false) %>" />
+    <% project_twitter = project_twitter(version.project) %>
+    <% unless project_twitter.blank? %>
+      <meta name="twitter:site" content="<%= h project_twitter %>" />
+    <% end %>
+  <% end %>
+<% end %>

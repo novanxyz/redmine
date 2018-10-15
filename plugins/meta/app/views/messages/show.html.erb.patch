@@ -1,0 +1,10 @@
+--- /usr/share/redmine/app/views/messages/show.html.erb	2014-03-29 18:56:37.000000000 +0200
++++ app/views/messages/show.html.erb	2014-06-09 16:57:59.271319914 +0300
+@@ -30,6 +30,7 @@
+ <div class="wiki">
+ <%= textilizable(@topic, :content) %>
+ </div>
++<%= call_hook(:view_messages_show_topic_bottom, :topic => @topic) %>
+ <%= link_to_attachments @topic, :author => false %>
+ </div>
+ <br />

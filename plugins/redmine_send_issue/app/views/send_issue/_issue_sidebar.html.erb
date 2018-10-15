@@ -1,0 +1,11 @@
+<% unless @issue.nil? %>
+<h3><%= l(:label_send_issue) %></h3>
+<ul>
+  <li>
+      <%= form_tag({:controller => "send_issue", :issue_id => @issue.id }, :method => "POST") do %>
+        <input type="email" name="mail_to" style="display:inline-block" placeholder="<%= l(:placeholder_send_issue)%>"/>
+        <input type="submit" value="send" style="display:inline-block"/> 
+      <% end %>
+  </li>
+</ul>
+<% end %>

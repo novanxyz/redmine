@@ -1,0 +1,13 @@
+view_news_show_left:
+  url: /news/:id
+  outline: meta/news
+  page: :news
+  location: :content
+  basic: true
+
+view_wiki_show_left:
+  url: /projects/:project/wiki/:page
+  outline: meta/wiki
+  page: :wiki
+  location: :content
+  basic: true

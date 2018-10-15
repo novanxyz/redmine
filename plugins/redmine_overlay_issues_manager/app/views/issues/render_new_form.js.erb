@@ -1,0 +1,63 @@
+
+var datepickerOptions = {dateFormat: 'yy-mm-dd',showOn: "button", buttonImageOnly: true, buttonImage: "<%= j(path_to_image('/images/calendar.png')) %>"};
+$('body').append("<%=include_calendar_headers_tags %>");
+
+var modified_body = false;
+
+var errors = '<%= @errors %>';
+
+if ('<%= @errors %>' == '0')
+{
+    $('html').attr('style', '');
+    var modified_body = true;
+    $.modal.close();
+    $('.edit-form-overlay').remove();
+    $('#simplemodal-container').remove();
+    $('#simplemodal-overlay').remove();
+}
+
+
+
+if (modified_body == false)
+
+{
+    $.modal.close();
+    $('.edit-form-overlay').remove();
+    $('#simplemodal-container').remove();
+    $('#simplemodal-overlay').remove();
+    $('html').attr('style', 'overflow:hidden; height:100%;');
+    $('body').append(" <%= j(javascript_include_tag('jstoolbar/jstoolbar-textile.min') +
+              javascript_include_tag("jstoolbar/lang/jstoolbar-#{current_language.to_s.downcase}") +
+              stylesheet_link_tag('jstoolbar'))%>");
+    $('body').append("<div class= 'edit-form-overlay' id='form_overlay_container' style='display:none'></div>");
+    $('.edit-form-overlay').html("<%= j (render template: 'issues/new') %>");
+    $('body').append("<%= j (yield :header_tags) %>");
+    $('.edit-form-overlay').modal({containerCss:{
+                height:630
+            },
+                onClose: function (dialog) {
+                    $('html').attr('style', '');
+                    $.modal.close();
+                }
+            }
+    );
+
+}
+
+
+
+$('.simplemodal-data').find('input[type=submit]').click(function(){
+
+    var project_id = "<%= @project.identifier%>";
+    $('form').submit(function() {
+        var valuesToSubmit = $(this).serialize();
+        $.ajax({
+            url: '/create_issue_from_overlay',
+            type: "POST",
+            data: valuesToSubmit + "&project_id=" + project_id,
+            dataType: "script"
+        }).success(function(json){
+        });
+        return false; // prevents normal behaviour
+    });
+});

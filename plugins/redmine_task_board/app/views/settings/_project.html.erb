@@ -1,0 +1,31 @@
+<%= javascript_include_tag('task_board', :plugin => 'redmine_task_board') %>
+
+<style>
+.status-holder { list-style-type: none; margin: 0; padding: 0; }
+.status-pill { list-style-type: none; cursor: move; float: left; background: #efefef; border: solid 1px #aaa; margin: 0 5px 5px 0; padding: 5px; border-radius: 3px; }
+
+#column_manager { overflow: auto }
+#column_manager div.movable-columns h4 { text-align: center; height: 15px; padding: 5px 0; margin: 0 0 5px 0; font-size: 15px; }
+#column_manager .column { float: left; width: 165px; margin-right: 10px; padding: 5px; }
+#column_manager .column.dyn-column { background: #fafafa; border: solid 1px #ccc; }
+#column_manager .column h5 { font-size: 16px; margin: 0 0 5px 0; padding: 0; cursor: move; }
+#column_manager .column .buckets-wrapper { border: dashed 1px #ccc; padding: 5px; }
+#column_manager .column .buckets-wrapper .status-pill { float: none; }
+#column_manager div.form-save { clear: left; padding-top: 15px; }
+
+#column_manager ul.status-holder { width: 150px; }
+p.cell input { width: 30px; }
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+</style>
+
+<%= translate :task_board_help %>
+
+<div id="column_manager">
+  <%= render :partial => 'settings/column_manager', :locals => {
+        :columns => TaskBoardColumn.where(:project => @project.id).order("weight ASC"),
+        :statuses => IssueStatus.all
+      }
+  %>
+</div>

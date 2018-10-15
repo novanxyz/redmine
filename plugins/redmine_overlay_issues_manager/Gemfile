@@ -1,0 +1,2 @@
+gem 'chardinjs-rails'
+gem 'responders', '~> 2.0'

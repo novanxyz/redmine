@@ -1,0 +1,32 @@
+<% meta_description(user.name(:firstname_lastname)) unless meta_description? %>
+
+<% settings = Setting.plugin_meta %>
+
+<% unless settings[:facebook_admins].blank? %>
+  <% content_for(:header_tags) do %>
+    <meta property="fb:admins" content="<%= h settings[:facebook_admins] %>" />
+  <% end %>
+<% end %>
+
+<% unless settings[:facebook_app].blank? %>
+  <% content_for(:header_tags) do %>
+    <meta property="fb:app_id" content="<%= h settings[:facebook_app] %>" />
+  <% end %>
+<% end %>
+
+<% if settings[:open_graph] %>
+  <% content_for(:header_tags) do %>
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content="<%= h user.name(:firstname_lastname) %>" />
+    <meta property="og:description" content="<%= h meta_description %>" />
+    <meta property="profile:first_name" content="<%= h user.firstname %>" />
+    <meta property="profile:last_name" content="<%= h user.lastname %>" />
+    <% if Setting.gravatar_enabled? %>
+      <meta property="og:image" content="<%= h gravatar_url(user.mail, :size => 200, :ssl => (defined?(request) && request.ssl?), :default => Setting.gravatar_default) %>" />
+    <% end %>
+    <meta property="og:url" content="<%= h url_for(:controller => 'users', :action => 'show', :id => user, :only_path => false) %>" />
+    <% unless settings[:open_graph_site].blank? %>
+      <meta property="og:site_name" content="<%= h settings[:open_graph_site] %>" />
+    <% end %>
+  <% end %>
+<% end %>

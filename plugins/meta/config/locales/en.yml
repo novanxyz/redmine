@@ -1,0 +1,25 @@
+en:
+  label_facebook: Facebook
+  label_facebook_admins: Administrators
+  text_facebook_admins: Comma separated list of Facebook user identifiers
+  label_facebook_app: App identifier
+  text_facebook_app: If your Redmine is registered as a Facebook app
+
+  label_open_graph: Open Graph
+  label_enable_open_graph: Enable
+  label_open_graph_site: Site name
+  text_open_graph_site: Specify site group name, if your Redmine is a part of a larger site group
+
+  label_twitter_cards: Twitter Cards
+  label_enable_twitter_cards: Enable
+  label_twitter_site: Site account
+  text_twitter_site: Specify Twitter username for the whole site
+  label_twitter_user_custom_field: User custom field
+  text_twitter_user_custom_field: Choose custom field, which holds Twitter usernames for users
+  label_twitter_project_custom_field: Project custom field
+  text_twitter_project_custom_field: Choose custom field, which holds Twitter usernames for projects
+
+  hook_page_news: News page
+
+  description_view_news_show_left: above comments
+  description_view_wiki_show_left: bottom

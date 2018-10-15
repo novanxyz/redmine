@@ -1,0 +1,25 @@
+ru:
+  label_facebook: Facebook
+  label_facebook_admins: Администраторы
+  text_facebook_admins: Идентификаторы пользователей Facebook разделённые запятыми
+  label_facebook_app: Идентификатор приложения
+  text_facebook_app: Если ваш Redmine зарегистрирован как приложение в Facebook
+
+  label_open_graph: Open Graph
+  label_enable_open_graph: Включить
+  label_open_graph_site: Имя сайта
+  text_open_graph_site: Укажите название сайта, если ваш Redmine является частью большего сайта
+
+  label_twitter_cards: Twitter Cards
+  label_enable_twitter_cards: Включить
+  label_twitter_site: Эккаунт сайта
+  text_twitter_site: Укажите имя пользователя в Twitter для всего сайта
+  label_twitter_user_custom_field: Настраиваемое поле пользователей
+  text_twitter_user_custom_field: Выберите настраиваемое поле, которое хранит имена пользователей в Twitter
+  label_twitter_project_custom_field: Настраиваемое поле проектов
+  text_twitter_project_custom_field: Выберите настраиваемое поле, которое хранит имена пользователей в Twitter для проектов
+
+  hook_page_news: Страница новостей
+
+  description_view_news_show_left: над комментариями
+  description_view_wiki_show_left: внизу

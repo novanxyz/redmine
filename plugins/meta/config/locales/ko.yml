@@ -1,0 +1,21 @@
+# Translation by Ki Won Kim (http://x10.mine.nu/redmine, http://xyz37.blog.me, xyz37@naver.com)
+ko:
+  label_facebook: "페이스북"
+  label_facebook_admins: "관리자"
+  text_facebook_admins: "페이스북 사용자 식별자의 쉼표로 구분된 목록"
+  label_facebook_app: "앱 식별자"
+  text_facebook_app: "당신의 레드마인이 페이스북 앱에 등록된 경우"
+
+  label_open_graph: "오픈 그래프"
+  label_enable_open_graph: "가능"
+  label_open_graph_site: "사이트 이름"
+  text_open_graph_site: "당신의 레드마인이 큰 사이트의 일부인 경우, 지정할 사이트 그룹명"
+
+  label_twitter_cards: "트위터 카드"
+  label_enable_twitter_cards: "가능"
+  label_twitter_site: "사이트 계정"
+  text_twitter_site: "전 사이트에서 사용할 특정 트위터 사용자 이름"
+  label_twitter_user_custom_field: "사용자 정의 항목"
+  text_twitter_user_custom_field: "사용자에 대한 트위터 사용자 이름에서 갖고 있는 사용자 정의 항목을 고르시오."
+  label_twitter_project_custom_field: "프로젝트 사용자 정의 항목"
+  text_twitter_project_custom_field: "프로젝트에 대한 트위터 사용자 이름에서 갖고 있는 사용자 정의 항목을 고르시오."
