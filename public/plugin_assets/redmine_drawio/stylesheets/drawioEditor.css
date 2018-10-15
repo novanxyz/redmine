@@ -1,0 +1,29 @@
+iframe.drawioEditor {
+    border:0;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    width:100%;
+    height:100%;
+    z-index:999999; /* Big number, to cover the EasyRedmine toolbar */
+}
+                   
+.jstb_drawio_attach {
+    background-image: url(../images/jstb_drawio_attach.png);
+}
+
+.jstb_drawio_dmsf {
+    background-image: url(../images/jstb_drawio_dmsf.png);
+}
+
+#drawio_diagName {
+    border-color: #d05050;
+}
+
+input[readonly].drawio {
+    opacity: 0.5;
+    color: #545454;
+    background-color: #EAEAEA;
+}
