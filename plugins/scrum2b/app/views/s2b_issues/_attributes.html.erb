@@ -1,0 +1,33 @@
+<div class="splitcontent">
+  <div class="splitcontentleft">
+    <% if @issue.safe_attribute?('status_id') && @allowed_statuses.present? %>
+      <p><%= f.select :status_id, (@allowed_statuses.collect {|p| [p.name, p.id]}), {:required => true} %></p>
+    
+    <% else %>
+      <p><label><%= l(:field_status) %></label> <%= h(@issue.status.name) %></p>
+    <% end %>
+    
+    <% if @issue.safe_attribute? 'priority_id' %>
+      <p><%= f.label "Priority"%><%= f.select :priority_id, (@priorities.collect {|p| [p.name, p.id]}), {:required => true}, :disabled => !@issue.leaf? %></p>
+    <% end %>
+      
+    <% if @issue.safe_attribute? 'assigned_to_id' %>
+      <p><%= f.label "Assignee"%><%= f.select :assigned_to_id, principals_options_for_select(@issue.assignable_users, @issue.assigned_to), :include_blank => true, :required => @issue.required_attribute?('assigned_to_id') %></p>
+    <% end %>
+    
+    <% if @issue.safe_attribute?('category_id') && @issue.project.issue_categories.any? %>
+      <p><%= f.select :category_id, (@issue.project.issue_categories.collect {|c| [c.name, c.id]}), :include_blank => true, :required => @issue.required_attribute?('category_id') %>
+      <%= link_to(image_tag('add.png', :style => 'vertical-align: middle;'),
+        new_project_issue_category_path(@issue.project),
+        :remote => true,
+        :method => 'get',
+        :title => l(:label_issue_category_new),
+        :tabindex => 200) if User.current.allowed_to?(:manage_categories, @issue.project) %></p>
+    <% end %>
+  </div> 
+  
+  <fieldset style="width: 95%;margin: auto;"><legend><%= l(:label_attachment_plural) %></legend>
+    <p><%= render :partial => '../views/attachments/form', :locals => {:container => @issue} %></p>
+  </fieldset>
+</div>
+
